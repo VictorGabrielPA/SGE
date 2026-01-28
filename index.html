@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGE - Login</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body{
+            background-color: rgb(240, 240, 240);
+            font-family: Arial, Helvetica, sans-serif;
+            color: blue;
+        }
+        #central{
+            position: absolute;
+            background-color: white;
+            border-radius: 10px;
+            justify-items: center;
+            text-align: center;
+            padding: 10px;
+            width: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 4px 10px 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .input_grande{
+            font-size: medium;
+            margin-top: 5px;
+            width: 350px;
+        }
+        button{
+            border: none;
+            border-radius: 5px;
+            color: white;
+            background-color: blue;
+            width: 80px;
+            height: 40px;
+            font-size: medium;
+            margin-top: 60px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        button:hover{
+            background-color: darkblue;
+        }
+        button:active{
+            background-color: rgb(3, 100, 179);
+        }
+        label{
+            width: 100%;      
+            max-width: 350px; 
+            display: block;
+            text-align: left;
+            margin-top: 50px;
+        }
+        header {
+            background-color: #ffffff;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 12px 0px; 
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        header img {
+            width: 180px; 
+            max-width: 100%;
+        }
+
+    </style>
+</head>
+<body>
+<script>
+    function clicou() {
+    var email = document.getElementById("email").value
+    var password = document.getElementById("password").value
+
+    if (!email || !password)
+    {
+        alert("Preencha todos os campos.")
+    }
+    else
+    {
+        window.location.replace("pages/home.html")
+    }
+    
+    
+}
+</script>
+
+    <header>
+        <img src="images/logo_senai.png" alt="Logo SENAI">
+    </header>
+
+    <div id="central">
+        <h2>LOGIN</h2>
+        <label for="email">Email</label>
+        <input id="email" name="email" class="input_grande" type="email"    placeholder="@email.com">
+
+        <label for="senha">Senha</label>
+        <input id="password" name="senha" class="input_grande"  type="password" placeholder="123456">
+
+        <button onclick="clicou()">Enviar</button>
+
+    </div>
+
+    
+</body>
+</html>
