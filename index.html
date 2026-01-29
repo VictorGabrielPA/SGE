@@ -79,20 +79,18 @@
 <body>
 <script>
     function clicou() {
-    var email = document.getElementById("email").value
-    var password = document.getElementById("password").value
+        var email = document.getElementById("email").value
+        var password = document.getElementById("password").value
 
-    if (!email || !password)
-    {
-        alert("Preencha todos os campos.")
+        if (!email || !password)
+        {
+            alert("Preencha todos os campos.")
+        }
+        else
+        {
+            window.location.replace("pages/home.html")
+        }
     }
-    else
-    {
-        window.location.replace("pages/home.html")
-    }
-    
-    
-}
 </script>
 
     <header>

@@ -1,140 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGE - Agendamento</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SGE - Agendamento</title>
+<style>
+    * { box-sizing: border-box; margin:0; padding:0; font-family: Arial, Helvetica, sans-serif; }
+    body { min-height: 100vh; background: linear-gradient(180deg, #eef4ff, #f9fbff); }
+    header {
+        background-color: #ffffff;
+        width: 100%;
+        position: fixed;
+        top: 0; left: 0;
+        padding: 15px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    header img { width: 220px; max-width:100%; }
+    header h3 { color:#333; font-weight: normal; margin-left:auto; white-space: nowrap; }
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+    main { padding-top: 120px; display:flex; justify-content:center; }
+    .container {
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:30px;
+        align-items:flex-start;
+        width:100%;
+        max-width:1100px;
+    }
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(180deg, #eef4ff, #f9fbff);
-        }
+    .card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
 
-        /* HEADER */
-        header {
-            background-color: #ffffff;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 15px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
+    h2 { color:#1e4db7; margin-bottom:25px; }
+    label { display:block; margin-top:18px; font-weight:bold; color:#333; }
+    .input { width:100%; margin-top:6px; padding:12px; font-size:15px; border-radius:6px; border:1px solid #ccc; }
+    .input:focus { outline:none; border-color:#1e4db7; }
 
-        header img {
-            width: 220px;
-        }
+    button {
+        width:100%; margin-top:30px; padding:14px; font-size:16px;
+        border:none; border-radius:8px; background-color:#1e4db7; color:white; cursor:pointer; transition:0.3s;
+    }
+    button:hover { background-color:#163a8f; }
 
-        header h3 {
-            color: #333;
-            font-weight: normal;
-        }
+    .agenda-item {
+        border-left:4px solid #1e4db7;
+        background-color:#f5f8ff;
+        padding:15px;
+        border-radius:8px;
+        margin-bottom:15px;
+    }
+    .agenda-item strong { color:#1e4db7; }
+    .agenda-item p { margin-top:5px; color:#444; font-size:14px; }
 
-        /* CONTEÚDO PRINCIPAL */
-        main {
-            padding-top: 120px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: flex-start;
-            width: 100%;
-            max-width: 1100px;
-        }
-
-        /* FORMULÁRIO */
-        .card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        h2 {
-            color: #1e4db7;
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-top: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .input {
-            width: 100%;
-            margin-top: 6px;
-            padding: 12px;
-            font-size: 15px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        .input:focus {
-            outline: none;
-            border-color: #1e4db7;
-        }
-
-        button {
-            width: 100%;
-            margin-top: 30px;
-            padding: 14px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            background-color: #1e4db7;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #163a8f;
-        }
-
-        /* AGENDAMENTOS */
-        .agenda-item {
-            border-left: 4px solid #1e4db7;
-            background-color: #f5f8ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .agenda-item strong {
-            color: #1e4db7;
-        }
-
-        .agenda-item p {
-            margin-top: 5px;
-            color: #444;
-            font-size: 14px;
-        }
-
-        
-        @media (max-width: 900px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    @media(max-width:900px){ .container { grid-template-columns:1fr; } }
+</style>
 </head>
 <body>
 
@@ -146,18 +73,19 @@
 <main>
     <div class="container">
 
-        
+        <!-- FORMULÁRIO -->
         <div class="card">
             <h2>Novo Agendamento</h2>
 
             <label>Turma</label>
-            <select class="input">
+            <select class="input" id="turma">
                 <option>Informática para Internet (Tarde)</option>
                 <option>Informática para Internet (Noite)</option>
+                <option>Mecânica (Tarde)</option>
             </select>
 
             <label>Local</label>
-            <select class="input">
+            <select class="input" id="local">
                 <option>Biblioteca</option>
                 <option>Auditório</option>
                 <option>Lab. Informática</option>
@@ -166,7 +94,7 @@
             </select>
 
             <label>Data</label>
-            <input class="input" type="date">
+            <input class="input" type="date" id="data">
 
             <label>Horário</label>
             <input class="input" type="time" id="horaInicio">
@@ -177,86 +105,81 @@
             <button type="button" onclick="reservar()">Reservar</button>
         </div>
 
-        
+        <!-- AGENDAMENTOS -->
         <div class="card">
             <h2>Agendamentos</h2>
-
-            <div class="agenda-item">
-                <strong>Biblioteca</strong>
-                <p>Turma: Informática para Internet (Tarde)</p>
-                <p>Data: 30/01/2026</p>
-                <p>Horário: 14:00 – 16:00</p>
-            </div>
-
-            <div class="agenda-item">
-                <strong>Lab. Informática</strong>
-                <p>Turma: Informática para Internet (Noite)</p>
-                <p>Data: 30/01/2026</p>
-                <p>Horário: 19:00 – 21:00</p>
-            </div>
-
-            <div class="agenda-item">
-                <strong>Auditório</strong>
-                <p>Turma: Informática para Internet (Tarde)</p>
-                <p>Data: 31/01/2026</p>
-                <p>Horário: 15:00 – 17:00</p>
-            </div>
+            <div id="lista-agendamentos"></div>
         </div>
 
     </div>
 </main>
 
 <script>
-    const agendamentos = [];
+    // AGENDAMENTOS INICIAIS
+    const agendamentos = [
+        { turma: "Mecânica (Tarde)", local: "Biblioteca", data: "2026-02-03", horaInicio: "13:45", horaFim: "15:15" },
+        { turma: "Informática para Internet (Noite)", local: "Biblioteca", data: "2026-02-04", horaInicio: "20:00", horaFim: "21:00" },
+        { turma: "Informática para Internet (Tarde)", local: "Auditório", data: "2026-02-05", horaInicio: "15:00", horaFim: "17:00" }
+    ];
 
+    const lista = document.getElementById("lista-agendamentos");
+
+    // Função para renderizar todos os agendamentos na tela
+    function renderizarAgendamentos() {
+        lista.innerHTML = ""; // limpa
+        agendamentos.forEach(a => {
+            const div = document.createElement("div");
+            div.className = "agenda-item";
+            div.innerHTML = `
+                <strong>${a.local}</strong>
+                <p>Turma: ${a.turma}</p>
+                <p>Data: ${a.data.split("-").reverse().join("/")}</p>
+                <p>Horário: ${a.horaInicio} – ${a.horaFim}</p>
+            `;
+            lista.appendChild(div);
+        });
+    }
+
+    // Inicializa a tela com os agendamentos existentes
+    renderizarAgendamentos();
+
+    // Função de reservar
     function reservar() {
-        const selects = document.querySelectorAll('select');
-        const turma = selects[0].value;
-        const local = selects[1].value;
-        const data = document.querySelector('input[type="date"]').value;
-        const horaInicio = document.getElementById('horaInicio').value;
-        const horaFim = document.getElementById('horaFim').value;
+        const turma = document.getElementById("turma").value;
+        const local = document.getElementById("local").value;
+        const data = document.getElementById("data").value;
+        const horaInicio = document.getElementById("horaInicio").value;
+        const horaFim = document.getElementById("horaFim").value;
 
         if (!turma || !local || !data || !horaInicio || !horaFim) {
-            alert('Preencha todos os campos antes de reservar.');
+            alert("Preencha todos os campos antes de reservar.");
             return;
         }
 
         if (horaFim <= horaInicio) {
-            alert('O horário final deve ser maior que o horário inicial.');
+            alert("O horário final deve ser maior que o horário inicial.");
             return;
         }
 
-        const conflito = agendamentos.find(a => 
+        // verifica conflito com TODOS os agendamentos
+        const conflito = agendamentos.find(a =>
             a.local === local &&
             a.data === data &&
             !(horaFim <= a.horaInicio || horaInicio >= a.horaFim)
         );
 
         if (conflito) {
-            alert('Esse local já está reservado nesse intervalo de horário.');
+            alert("Esse local já está reservado nesse intervalo de horário.");
             return;
         }
 
-        if (!confirm('Confirmar reserva?')) return;
+        if (!confirm("Confirmar reserva?")) return;
 
         const novo = { turma, local, data, horaInicio, horaFim };
         agendamentos.push(novo);
-
-        const lista = document.querySelector('.card:last-child');
-        const div = document.createElement('div');
-        div.className = 'agenda-item';
-        div.innerHTML = `
-            <strong>${local}</strong>
-            <p>Turma: ${turma}</p>
-            <p>Data: ${data.split('-').reverse().join('/')}</p>
-            <p>Horário: ${horaInicio} – ${horaFim}</p>
-        `;
-        lista.appendChild(div);
-
-        alert('Reserva realizada com sucesso!');
+        renderizarAgendamentos();
+        alert("Reserva realizada com sucesso!");
     }
-    
 </script>
 
 </body>
